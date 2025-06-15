@@ -1,0 +1,43 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class GoogleSearchExample {
+    public static void main(String[] args) throws InterruptedException {
+        WebDriverManager.edgedriver().setup();
+        WebDriver driver = new EdgeDriver();
+
+        // Step 1: Open Google
+        driver.get("https://www.google.com");
+        driver.manage().window().maximize();
+        Thread.sleep(3000); // Wait for the page to load
+
+        // Step 2: Accept cookies if visible (Google sometimes shows a popup)
+        try {
+            WebElement acceptButton = driver.findElement(By.xpath("//div[text()='I agree' or text()='Accept all']"));
+            acceptButton.click();
+            Thread.sleep(2000);
+        } catch (Exception e) {
+            // No cookie popup, continue
+        }
+
+        // Step 3: Locate the search box and enter search text
+        WebElement searchBox = driver.findElement(By.name("q"));
+        searchBox.sendKeys("Selenium tutorial");
+
+        // Step 4: Press Enter or click Search
+        searchBox.submit(); // or driver.findElement(By.name("btnK")).click();
+        Thread.sleep(4000); // wait for results
+
+        // Step 5: Click on the first result
+        WebElement firstResult = driver.findElement(By.xpath("(//h3)[1]/ancestor::a"));
+        firstResult.click();
+
+        // Step 6: Done
+        System.out.println("First result clicked.");
+        Thread.sleep(8000);
+        driver.quit();
+    }
+}
