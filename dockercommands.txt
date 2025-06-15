@@ -1,0 +1,17 @@
+1. docker --version
+2. docker images
+3. docker pull <image_name>
+4. docker run <image_id>
+5. docker info
+6. docker ps
+7. docker ps -a
+8. docker login
+9. docker logout
+10. docker start <container_id>
+11. docker stop <container_id>
+12. docker rmi <image_id>
+13. docker rm <container_id>
+14. docker build .
+15. docker build -t <image_name:version> .
+16. docker help
+When running on cloud, always <sudo> will be used before these commands.
