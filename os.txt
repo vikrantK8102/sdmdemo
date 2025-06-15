@@ -1,0 +1,290 @@
+ls  -  list all files
+vi  filename.sh -make file
+i - write in scipt
+shfit :wq - to save scipt
+cat filename.sh  - to read the file
+ls -ltr - to check if file has read write permission
+bash filename.sh - to run file without execute permission
+chmod +x filename.sh - to give execute permission to file
+---------------------------------------------------------------
+comments - #.....
+------------------------------------------------------------------
+varibales:
+
+1.define
+ a=10
+ name="vikrant"
+ age=20
+
+2.how to print varibales
+  
+  echo "my name is $name and my age is $age"
+3.we change varibales value also within scipt
+ name = "prasant"
+ echo "my name is $name"
+
+3.variable to print output of commends
+ HOSTNAME=$("hostname")
+ echo "name of this machine is $HOSTNAME"
+ 
+4.readonly varible
+
+  readonly COLLEGE="metro"
+
+echo "$COLLEGE"
+
+COLLEGE="sspm"
+echo "$COLLEGE"
+
+ 
+  Output:
+
+metro
+metro
+
+script.sh: line 5: COLLEGE: readonly variable
+
+------------------------------------------------------
+Arrays
+1]
+myarray=(1 2 30.2 hello "hey buddy")
+echo "value of array index is ${myarray[4]}"
+
+echo "all values in array are: ${myarray[*]}"
+
+echo "no of values.lenth of array is ${#myarray[*]}"
+
+2]
+
+#2nd index se start karke 2 values chahiye
+
+echo "value from 2-3 is ${myarray[*]:2:2}"
+
+#1st index se start karke 3 values
+
+echo "value from 0-3 is ${myarray[*]:0:3}"
+
+3]
+#updating array with new values
+
+myarray+=(5 vikrant 87)
+echo "all values in array are: ${myarray[*]}"
+
+4]key value paires
+
+declare -A myarray  #declare array
+myarray=([name]=vikrant [age]=24 [city]=kankavli)  #add value in key-value paires
+echo "my name is ${myarray[name]}"   #print it
+echo "my name is ${myarray[age]}"
+echo "my name is ${myarray[city]}"
+
+--------------------------------------
+String 
+
+1] length :
+
+myvar="how are you buddy!"
+
+myVarLenth=${#myvar}
+
+echo "my var length is $myVarLenth"
+
+#to uppercase
+echo "to upper case : ${myvar^^}"
+
+#to lowercase
+echo "to lowercase : ${myvar,,}"
+
+#to replace one string to new string
+
+newvar=${myvar/buddy/vikrant}
+echo "$newvar"
+
+#slice
+echo "slice of string is ---${myvar:12:5}" #12 pasun 5 charcters
+------------------------------------------------------------------------------
+Shell Script codes :
+
+1] if 
+x=20
+if[$x-lt 50];
+echo "$x is then 50"
+
+#how to run:
+
+bash if1.sh   # Runs script
+chmod  u+x if1.sh  # Grants execute permission
+./if1.sh   # Executes the script
+
+
+2]if-elif-else
+echo "enter x:"
+read x
+if[$x-lt 50];then
+echo "$x is less then 50"
+elif[$x-gt 50];then
+echo "$x is greater then 50"
+else
+echo "$x is equal to 50"
+fi  
+
+3]write shell  scipt to check no is odd or even
+x=20
+(($x%2==0))&&echo "even"||echo "odd"
+
+4]for loop
+
+for((x=1;x<10;x++));do
+echo "$x"
+done
+
+5] while loop
+
+x=2
+while[x-lt 20];do
+echo "$x"
+((x++))
+done
+
+6]until loop
+
+x=1
+until[$x-gt 30];do
+echo "$x"
+((x++))
+done
+
+
+--------------------------------------------------------------------
+Arthamatic expression
+
+1] sum of 2 numbers
+  x=10
+y=25
+sum=`expr $x + $y`
+echo "sum is $sum "
+
+------------------------------
+calculator
+while true;do
+echo "enter 2 numbers"
+read a b
+echo "enter operators(+-*/)"
+read op
+
+if[$op="+"];then
+res=`expr $a+$b`
+elif[$op="-"];then
+res=`expr $a-$b`
+elif[$op="*"];then
+res=`expr $a\*b$b
+elif[$op="/"]
+res=`expr $a/$b
+else
+ echo "invalid operator"
+fi
+continue
+echo "result is: $res"
+echo "continue ?(y/n) "
+read ans
+[$ans="n"]&&break
+done
+------------------------------
+File Tests
+
+read f
+if [ -f $f ]; then
+  echo "$f is a file"
+  cat $f
+elif [ -d $f ]; then
+  echo "$f is a directory"
+  ls $f
+fi
+--------------------------------------------
+ Loop Through Files
+ 
+ for f in `ls`; do
+  echo "$f"
+  if [ -f $f ]; then
+    cat $f
+  fi
+done
+--------------------------------------------
+Command Line Arguments
+
+# Save as cmdline.sh
+echo "$1 $2 $3"
+sum=0
+for x in "$@"; do
+  ((sum += x))
+done
+echo "sum=$sum"
+---------------------------------------------------
+Word Count
+
+wc -c file  # bytes
+wc -l file  # lines
+wc -w file  # words
+
+Count processes
+
+x=`ps -e | wc -l`
+((x--))
+echo "Processes: $x"
+
+---------------------------------
+Count Entries in Folder
+
+ls | wc -l
+
+---------------------------------------
+ Accept Numbers Until -1, Then Process
+ 
+ > numdata
+while true; do
+  echo "Enter a number (-1 to stop):"
+  read n
+  [ $n -eq -1 ] && break
+  echo "$n" >> numdata
+done
+
+sort -n numdata
+echo "Count:" `cat numdata | wc -l`
+
+sum=0
+for x in `cat numdata`; do
+  ((sum+=x))
+done
+echo "Sum=$sum"
+-------------------------------
+ grep – Pattern Search
+ 
+ grep "a" file
+grep -E "[a-z]{3}" file
+grep -E "^[A-Z][a-z]+" file
+grep -v "^$" file  # exclude blank lines
+---------------------------------------
+Common Regex
+. – any single char
+
+* – 0 or more
+
++ – 1 or more
+
+? – 0 or 1
+
+[a-z] – lowercase
+
+[0-9]{3} – 3 digits
+---------------------------------------------
+
+📧 Regex for Valid Email
+
+grep -E "[a-zA-Z0-9._]+@[a-zA-Z]+\.[a-z]{2,3}" file
+------------------------------------------------------------
+☎️ Regex for Phone Number
+
+grep -E "[0-9]{3}-[0-9]{8}" file
+-------------------------------------------------
+
+
